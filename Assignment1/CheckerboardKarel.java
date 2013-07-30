@@ -11,6 +11,71 @@ import stanford.karel.*;
 
 public class CheckerboardKarel extends SuperKarel {
 
-  // You fill in this part
+  // Run Program. Tells Karel to lay out beepers in a checkerboard pattern.
+	
+	public void run () {
+			layRow ();
+			while (frontIsClear ()) {
+				nextRow ();
+			}
+	}
+	
+	private void layRow () {
+		/*
+		 * Tells Karel to lay an entire row of beepers
+		 */
+		while (frontIsClear ()) {
+			layBeeper ();
+			moveTwo ();
+		}
+		faceNorth ();
+	}
+	
+	private void nextRow () {
+		/*
+		 * Tells Karel to move into place to start the next row (if required)
+		 */
+		if (noBeepersPresent ()) {
+			moveUp();
+		} else {
+			moveUp();
+			move();
+		}
+		layRow() ;
+	}
+		
+	private void moveUp () {
+		if (frontIsClear ()) { 
+			move();
+			if (rightIsBlocked ()) {
+				turnLeft();
+			} else {
+				turnRight();
+			}
+		}	
+	}
+		
+	private void moveTwo () {
+		for (int i = 0; i < 2; i++) {	
+			if (frontIsClear ()) {
+				move();
+			}
+		}	
+	}
+	
+	private void layBeeper () {
+		if (noBeepersPresent ()) {
+			putBeeper ();
+		}
+	}
+	
+	private void faceNorth() {
+		/*
+		 * Turns Karel to the North if he is not already facing that direction
+		 */
+		while (notFacingNorth()) {
+			turnLeft();
+		}
+	}
 
 }
