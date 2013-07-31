@@ -13,38 +13,49 @@ public class CheckerboardKarel extends SuperKarel {
 
   // Run Program. Tells Karel to lay out beepers in a checkerboard pattern.
 	
-	public void run () {
-			layRow ();
+		public void run () {
+			layBeeper ();
+			if (frontIsClear()) {
+				layRow ();
+			}else {
+				faceNorth ();//if world is only 1 avenue wide, sends Karel north.
+				layRow ();
+			}
 			while (frontIsClear ()) {
 				nextRow ();
 			}
 	}
-	
+
 	private void layRow () {
 		/*
 		 * Tells Karel to lay an entire row of beepers
 		 */
 		while (frontIsClear ()) {
-			layBeeper ();
-			moveTwo ();
+			move ();
+			if (frontIsClear ()) {
+				move ();
+				layBeeper ();
+			}
 		}
 		faceNorth ();
 	}
-	
+
 	private void nextRow () {
 		/*
-		 * Tells Karel to move into place to start the next row (if required)
+		 * Tells Karel to move into place to start the next street
 		 */
 		if (noBeepersPresent ()) {
 			moveUp();
+			layBeeper ();
 		} else {
 			moveUp();
 			move();
+			layBeeper();
 		}
 		layRow() ;
 	}
-		
-	private void moveUp () {
+
+	private void moveUp () { // moves Karel up to the next street, and makes him turn inwards
 		if (frontIsClear ()) { 
 			move();
 			if (rightIsBlocked ()) {
@@ -54,21 +65,13 @@ public class CheckerboardKarel extends SuperKarel {
 			}
 		}	
 	}
-		
-	private void moveTwo () {
-		for (int i = 0; i < 2; i++) {	
-			if (frontIsClear ()) {
-				move();
-			}
-		}	
-	}
-	
-	private void layBeeper () {
+
+	private void layBeeper () { //checks for the presence of a beeper before putting one down
 		if (noBeepersPresent ()) {
 			putBeeper ();
 		}
 	}
-	
+
 	private void faceNorth() {
 		/*
 		 * Turns Karel to the North if he is not already facing that direction
