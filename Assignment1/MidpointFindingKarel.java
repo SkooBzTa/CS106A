@@ -12,8 +12,50 @@
 
 import stanford.karel.*;
 
-public class MidpointFindingKarel extends SuperKarel {
+	public class MidpointFindingKarel extends SuperKarel {
 
-	// You fill in this part
+		public void run () { //Main run method
+			layOuters ();
+			while (frontIsClear ()) {
+				moveToBeeper ();
+				moveBeeperIn ();
+			}
+		}	
+		
+		private void layOuters () { //Places a Beeper one corner in from the West and East Walls
+			if (frontIsClear ()) {
+				move ();
+				layBeeper ();
+			}
+			while (frontIsClear ()) {
+				move ();
+			}
+			turnAround ();
+			move ();
+			layBeeper ();
+		}
+		
+		private void moveToBeeper () { // Moves Karel to the distant beeper
+			move ();
+			while (noBeepersPresent ()) {
+				if (frontIsClear ()) {
+					move ();
+				}
+			}
+		}
+		
+		private void moveBeeperIn () { // Collects the beeper, and places another one corner closer to the centre.
+			pickBeeper ();
+			turnAround ();
+			move ();
+			layBeeper ();
+		}
+		
+		private void layBeeper () { // Checks to ensure that there are no beepers before laying a beeper.
+			if (noBeepersPresent ()) {
+				putBeeper ();
+			}
+		}
+
 
 }
