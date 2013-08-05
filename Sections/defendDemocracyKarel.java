@@ -15,9 +15,14 @@ public class defendDemocracyKarel extends SuperKarel {
 				checkVote ();
 		}
 	}
-		
+	
+	/*
+	* Checks a voting panel. If there is no Beeper present on the centre position, Karel will check the top, and then
+	* bottom position for 'chads'. if any beepers are found, Karel will pick them up.
+	*/
+	
 	private void checkVote(){
-		if (noBeepersPresent () && frontIsClear()) {
+		if (noBeepersPresent ()) {
 			turnLeft();
 			move();
 			while (beepersPresent ()) {
@@ -34,6 +39,10 @@ public class defendDemocracyKarel extends SuperKarel {
 			turnRight ();
 		}
 	}
+	
+	/*
+	* Moves Karel to the next voting panel.
+	*/
 	
 	private void moveNext () {
 		move ();
